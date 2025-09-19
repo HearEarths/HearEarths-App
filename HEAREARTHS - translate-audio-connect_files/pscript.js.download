@@ -1,0 +1,44 @@
+function qbit(a, b, obj){
+  var objParams = ''; 
+  for (key in obj) {
+      if (obj.hasOwnProperty(key)){
+		  
+		//   if(key == 'site_url' || key == 'referrer'){}
+              obj[key] = encodeURIComponent(obj[key]);
+              console.log(obj[key]);
+			  
+          if(objParams !== ''){
+              objParams = objParams.concat('&'+key+'='+obj[key]);
+          }else{
+              objParams =  '&'+key+'='+obj[key];
+          }
+      };
+    }
+  var queryParams = '?'+a+'='+b+objParams;
+  ! function(e, i) {
+      //if (!e.pixie) {
+          var n = e.pixie = function(e, i, a) {
+              n.actionQueue.push({
+                  action: e,
+                  actionValue: i,
+                  params: a
+              })
+          };
+          setTimeout(function(){
+              n.actionQueue = [];
+              var ai = i.createElement("script");
+              ai.async = !0;
+              ai.type = "image/gif";
+              ai.src = "https://d1il5533o350rp.cloudfront.net/pixel.gif"+queryParams;
+              var ti = i.getElementsByTagName("head")[0];
+              ti.insertBefore(ai, ti.firstChild);
+              var elem = document.createElement('img');
+              elem.width = "1";
+              elem.height = "1";
+              elem.style.cssText = 'display:none';
+              elem.src = 'https://d1il5533o350rp.cloudfront.net/pixel.gif'+queryParams;
+              document.body.appendChild(elem);
+          }, 2000);
+      //}
+  }(window, document);
+}
